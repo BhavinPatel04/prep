@@ -145,10 +145,10 @@ let edgeList = [[0, 1, 4], [0, 2, 5], [1, 2, 6]];
 - O(|e|) =  O(|v| * |v|) -> Costly
 - O(|v|) -> OK
 
-####Conclusion
+#### Conclusion
 This technique is time costly
 
-### Adjacency Matrix
+### Technique: Adjacency Matrix
 - Store the edges in a 2-dimensional array
 - Solve the time complexity issue in Edge List 
 - Uses Undirected Unweighted Graph
@@ -178,7 +178,7 @@ let edgeList = [[0, 1, 1], [1, 0, 1], [1, 1, 0]];
 #### Conclusion
 This technique is space costly and not always efficient. It is good only for Dense Graph or if v^2 is too less to matter.
 
-### Adjacency List
+### Technique: Adjacency List
 - Store the adjacent nodes index in a 2-dimensional array.
 - Solve the Space Complexity
 - Uses Undirected Unweighted Graph
