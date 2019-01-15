@@ -1,7 +1,5 @@
 # Graph
-- Graph is a data structure used to store data just like all data
-  structures
-- Graph can be defined as an ordered pair of set `v` of vertices   (node) and set of edges (link) `e`
+Graph can be defined as an ordered pair of set `v` of vertices  (node) and set of edges (link) `e`
   `G = (v, e)`
   - Ordered Pair:
     - Representation: `(u, v)`
