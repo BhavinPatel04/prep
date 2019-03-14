@@ -79,7 +79,7 @@ Too few edges
 Path can be defined as a sequence of vertices where each adjacent pair is connected by an edge.
 
 ### Simple Path
-A Path(Walk) in which vertices and edges are not repeated. Most of times when we say Path, we mean Simple Path. So, if repetition is possibel, Path is called a Walk
+A Path(Walk) in which vertices and edges are not repeated. Most of times when we say Path, we mean Simple Path. So, if repetition is possible, Path is called a Walk
 
 ### Trail
 A Walk in which vertices can be repeated but edges cannot be repeated
@@ -91,22 +91,23 @@ If there is Walk in which vertices and edges are repeated, then there has to be 
 A Walk which starts and ends at same vertex and length of Walk > 0
 Length of a Walk is the number of Edges in a Walk.
 
-### Simple Cycle (Cycle)
-A Closed Walk in which other than start & end vertex, no other vertices are repeated
+## Simple Cycle (Cycle)
+A Closed Walk in which other than start & end vertex, no other vertices or edges are repeated
 
 ### Acyclic Graph
 A Graph with no Cycle
 #### Undirected Acyclic Graph
-A Tree with undirected edges would be a 
+A Tree with undirected edges would be an Undirected Acylclic Graph
 #### Directed Acyclic Graph (DAG)
+No Cycle
 
 
-### Strongly Connected Graphs
+## Strongly Connected Graphs
 If there is a Path from any vertex to any other vertex
 - Undirected Graph(`-----`) -> called Connected Graph
 - Directed Graph(`----->`) -> called Strongly Connected Graph
 - If a Directed Graph is <b>not</b> strongly connected but can     be turned into Connected by treating all it edges as             Unidrected, then such a Directed Graph is called Weakly          Connected Graph
-    
+
 ## Implementing a Graph
 Below techniques will judged on
   - Space complexity - Memory usage
@@ -164,7 +165,7 @@ let edgeList = [[0, 1, 1], [1, 0, 1], [1, 1, 0]];
 <b>Space Complexity:</b>
 - Space complexity has increases very much -> O(|v| * |v|)
 - The nodes which are not connected are also being stored, which are redundant
-- This is fine if it is Dense Graph, but for Spare Graph lot of memory is wasted
+- This is fine if it is Dense Graph, but for Sparse Graph lot of memory is wasted
 
 <b>Time Complexity:</b>
 - Time Complexity for Graph -> O(|v|) + O(|v|)

@@ -13,6 +13,10 @@
  *   in a special order such that parent node is greater (max heap)
  *   and 
  */
+
+// import { swap } from '../../utils';
+const { swap } = require('../../utils');
+
 function heapSort(arr){
     var len = arr.length,
         end = len-1;
@@ -55,12 +59,6 @@ function shiftDown(arr, start, end){
        toSwap = root;
        child = root*2+1
    }
-};
-
-function swap(arr, i, j){
-    var temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
 };
 
 const inputArray = [2, 5, 1, 3, 7, 2, 3, 8, 6, 3];

@@ -98,3 +98,9 @@ A Binary Tree is a Perfect Binary Tree if all levels are completely filled
 ### Balanced Binary Tree
 A Binary Tree is a Balanced Binary Tree if for each node, the difference between height of left and right subtree for every node is not more than k (mostly 1)
 `diff = | hLeft - hRight |`
+
+### Binary Search Tree
+A Binary Tree in which for each node, value of all nodes in left subtree is lesser or equal than the value of all nodes in right subtree
+- Search -> O(logn)
+- Insert -> O(logn)
+- Remove -> O(logn)

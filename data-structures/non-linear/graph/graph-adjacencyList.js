@@ -5,7 +5,7 @@
  * - Traversal Algorithms - BFS & DFS
  */
 
-const Queue = require("./queue");
+const Queue = require("../../linear/queue");
 
 class Graph {
     // define vertices & adj list
@@ -39,6 +39,8 @@ class Graph {
     };
 
     bfs(startingNode) {
+        if(!startingNode) return;
+
         let visited = [];
         for(let i = 0; i < this.noOfVertices; i++) {
             visited[i] = false;
@@ -61,7 +63,9 @@ class Graph {
             // queue if it is not processed yet 
             for (var i in list) { 
                 var item = list[i]; 
-      
+                
+                if(!item) return;
+
                 if (!visited[item]) { 
                     visited[item] = true; 
                     q.enqueue(item); 

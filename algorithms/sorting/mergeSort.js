@@ -1,12 +1,18 @@
 /**
  * #### Merge Sort
  * - Divide & Conquer algo
+ * - Recursive algo
+ * - Stable algo
+ * - Not in-place
  * - Divides the input array recursively in 2 halves 
  *   till the size becomes 1 and calls itself over the 2 halves
+ * - Time Complexity -> O(nlogn)
+ * - Space Complexity -> O(n) -> Reason why quickSort is practical 
+ *   in most cases
  */
 // Split the array into halves and merge them recursively 
 function mergeSort (arr) {
-    if (arr.length === 1) {
+    if (arr.length < 2) {
       // return once we hit an array with a single item
       return arr
     }
@@ -27,15 +33,13 @@ function merge (left, right) {
     let indexLeft = 0;
     let indexRight = 0;
 
-    while (indexLeft < left.length || indexRight < right.length) {
-        if (indexLeft < left.length && indexRight < right.length) {
-            if (left[indexLeft] < right[indexRight]) {
-                result.push(left[indexLeft]);
-                indexLeft++;
-            } else {
-                result.push(right[indexRight]);
-                indexRight++;
-            }
+    while (indexLeft < left.length && indexRight < right.length) {
+        if (left[indexLeft] < right[indexRight]) {
+            result.push(left[indexLeft]);
+            indexLeft++;
+        } else {
+            result.push(right[indexRight]);
+            indexRight++;
         }
     }
 
@@ -45,5 +49,5 @@ function merge (left, right) {
 const inputArray = [2, 5, 1, 3, 7, 2, 3, 8, 6, 3];
 console.log("Input Array", inputArray);
 console.time("Time Taken");
-console.log("Sorted Array", mergeSort(inputArray)) // [ 1, 2, 2, 3, 3, 3, 5, 6, 7, 8 ]
+console.log("Sorted Array", mergeSort([])) // [ 1, 2, 2, 3, 3, 3, 5, 6, 7, 8 ]
 console.timeEnd("Time Taken");

@@ -6,17 +6,23 @@
  * - (Smart check) All this does is moves the highest element
  *   at the last and second highest to second last and so on
  *   (Useful for Recursion)
+ * - Time Complexity -> O(n^2)
+ * - In-place & stable
  */
-function bubbleSort(arr){
-    var len = arr.length;
+
+const { swap } = require('../../utils');
+
+function bubbleSort(arr) {
+    const len = arr.length;
+    let sorted = true;
     for (var i = len-1; i>=0; i--){
       for(var j = 1; j<=i; j++){
         if(arr[j-1]>arr[j]){
-            var temp = arr[j-1];
-            arr[j-1] = arr[j];
-            arr[j] = temp;
+          swap(arr, j-1, j);
+          sorted = false;
          }
       }
+      if(sorted) break; // this will avoid redundant passes if array is already sorted
     }
     return arr;
 };
