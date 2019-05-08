@@ -14,7 +14,7 @@
 function mergeSort (arr) {
     if (arr.length < 2) {
       // return once we hit an array with a single item
-      return arr
+      return arr;
     }
   
     const middle = Math.floor(arr.length / 2) // get the middle item of the array rounded down

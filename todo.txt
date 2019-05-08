@@ -1,0 +1,71 @@
+TODO:
+  - Difference between POST & PUT
+  - What is REDIS?
+  - What is abstract, private, public?
+  - What is enum?
+
+Principles
+Customer obsession
+Ownership
+Invent & Simplify
+Leaders are right. A lot
+Leanr & Be curious
+Hire & develop the best
+Insist on highest standards
+Bias for action
+Frugality
+Dive deep
+Earn trust
+Have backbone. Disagree & commit
+Deliver results
+Think big
+
+
+When failed:
+-- My currect project is a multi-domain project and there was a 
+time early last year when I had 2 PMs and 2 BSAs and I was the only 
+UI developer onsite. Each of them assigned me multiple user stories 
+in each sprint. Since I was eager to please everyone, 
+in one sprint, I accepted too many user stories. I ended up taking
+3 more days than the sprint and everyone was upset.
+I realized I assumed the data is definitely going to be ready
+and I was too aggressive with the estimates and if I don't 
+deliver things as promised, people are not going 
+to be happy. I took this experience and decided to talk to the 
+ETL developer before giving my estimates which include a little
+bit buffer time. Now, I don't have to apologize for not completing
+tasks on time and everyone is happy.
+
+-- I was working on markoJS in eBay fellowship and I had to help
+them to make easier for the user to migrate from marko3 to marko4.
+I was assigned a task for writing a migrator for multiple tags
+and attributes one of which was the `ref` attribute. 
+I thought about an approach and 
+started with the task. I spent 2 days on it and still couldn't accomplish
+the task. I had to ask for help from the core developers to finish it.
+It turned out the the issue I was supposed to fix was in compiler 
+part and I was debugging in the runtime part of the code.
+This made me realize, if I get stuck and feel like I've reached
+a deadend or I need to apply a lot of hacks I need to zoom out 
+all the way and try a different approach. This helps me to write
+much smarter and cleaner code which is easy to understand and debug.
+
+-- explaination
+`ref` migrate to `key` which in turn should add `id:scoped` attr 
+before compiling
+
+Customer-obsession:
+When we first developed our project, there were lot of complaints
+regarding the application like dashboard not loading, dashboard is
+just spinning, every dashboard in the application looks different
+and incorrect data. I realized this is pushing cutomers away from
+the application while gaining bad reputation for the team. So,
+to keep the customers using and supporting the application, we 
+had to make it reliable, easy and predictable to use.
+I suggested we migrate to new application which will be developed
+while keeping all these issues in mind and never keep the 
+customer wondering what is happening on the dashboard.
+It took us about 6 months to completely migrate but now customers
+are pretty happy with the new application and we spend 80% less
+time on fixing bugs which gives us more time to innovate and add
+new features to the application.

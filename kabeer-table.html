@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Table</title>
+    <!-- Call me if you have any questions -->
+    <style>
+      body {
+        margin: 0;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        margin-top: 1%;
+      }
+
+      table {
+        width: 97%;
+        border-collapse: collapse;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ccc;
+      }
+
+      th {
+        background: #eee;
+      }
+
+      th,
+      td {
+        padding: 10px;
+      }
+
+    </style>
+    <!-- Above classes are styling only the table. If you need to style table, only then copy above classes -->
+    <!-- Only below classes are required for this to work -->
+    <style>
+      .collapsed {
+        display: none;
+      }
+
+      .expand-icon {
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 18px;
+        color: blue;
+        margin-right: 8px;
+      }
+
+      .add-icon::before {
+        content: '+';
+      }
+
+      .subtract-icon::before {
+        content: '-';
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML for table -- start -->
+    <table>
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+    <!-- HTML for table -- end -->
+    <script>
+      /**
+       * Just add the columns here
+       * Note that the `key` should be EXACTLY SAME as the property in data
+       */
+      const columns = [
+        {
+          label: "Name",
+          key: "name"
+        }, {
+          label: "Description",
+          key: "description"
+        }, {
+          label: "Type",
+          key: "type"
+        }
+      ];
+
+      /**
+       * Change the data for the table here
+       */
+      const data = [
+        {
+          name: "someName",
+          description: "some description",
+          type: "String",
+          children: [
+            {
+              name: "someName lvl 1.1",
+              description: "some description",
+              type: "String",
+              children: [
+                {
+                  name: "someName lvl 2.1",
+                  description: "some description",
+                  type: "String",
+                }, {
+                  name: "someName lvl 2.2",
+                  description: "some description",
+                  type: "String",
+                }
+              ]
+            }, {
+              name: "someName lvl 1.2",
+              description: "some description",
+              type: "String",
+            }
+          ]
+        }, {
+          name: "someOtherName",
+          description: "some description",
+          type: "String",
+          children: [
+            {
+              name: "someOtherName lvl 1",
+              description: "some description",
+              type: "String",
+            }
+          ]
+        }, {
+          name: "someOtherNameAgain",
+          description: "some description",
+          type: "String",
+        }
+      ];
+
+      /**
+       * This creates the header
+       */
+      const thead = document.querySelector('thead');
+      const headers = generateHeaders(columns);
+      thead.innerHTML = headers;
+
+      function generateHeaders(columns) {
+        let data = '<tr>';
+
+        columns.forEach(column => {
+          data += `<th>${column.label}</th>`;
+        });
+
+        data += '</tr>';
+
+        return data;
+      };
+
+      /**
+       * This creates the body
+       */
+      const tbody = document.querySelector('tbody');
+      const rows = generateRow(data, {});
+      tbody.innerHTML = rows;
+
+      function generateRow(rows, options) {
+        let data = '';
+
+        // defaulting the level to 0
+        if (!options.level) {
+          options.level = 0;
+        }
+
+        rows.forEach((row, index) => {
+          // creating correct childPointer class
+          if (options.childPointer) {
+            options.childPointer += `-child-${options.level - 1}`;
+          } else {
+            options.childPointer = `row-${index}`
+          };
+
+          // creating proper classes
+          const classList = `level-${options.level} 
+            ${options.level > 0 ? `collapsed ${options.childClass || ""}` : ""}`;
+
+          // creating the attribute childPointer which gives correct child className
+          const childPointerAttr = row.children ? `childpointer="${options.childPointer}"` : "";
+
+          // starting row
+          data += `<tr class="${classList}" ${childPointerAttr}>`;
+
+          // creates the columns with data in row
+          columns.forEach((column, index) => {
+            // index === 0 adds + sign on 1st column, index === 1 will add + sign on 2nd column and so on
+            // to change the icon style, check the .expand-icon in <style> above
+            const addIcon = row.children && index === 0 ? `<span class="expand-icon add-icon"></span>` : "";
+            const style = options.level && index === 0 ? `style="padding-left: ${options.level * 25}px;"` : "";
+            data += `<td ${style}>${addIcon}${row[column.key]}</td>`;
+            // Note: We can add anything you want here. ANYTHING: input box / dropdown / anything
+          });
+
+          // finishing row
+          data += `</tr>`;
+
+          // will create child rows
+          if (row.children) {
+            const _options = {
+              ...options,
+              level: options.level + 1,
+              childClass: options.childPointer
+            };
+
+            data += generateRow(row.children, _options);
+          };
+        });
+
+        return data;
+      };
+    </script>
+    <!-- Script is very important -->
+    <!-- Note the classNames (`expand-icon`, `add-icon`, `subtract-icon`, `collapsed`) 
+        are same that we used before -->
+    <script>
+      // getting all the expand-icon elements
+      const expandIcons = document.getElementsByClassName("expand-icon");
+      for (let i = 0; i < expandIcons.length; i++) {
+        (function () {
+          const icon = expandIcons[i];
+          // binding click event to all the expand-icons
+          icon.addEventListener("click", function ($event) {
+            let tr = $event.target;
+            // get the tr element
+            while (tr && tr.nodeName != 'TR') {
+              tr = tr.parentNode;
+            };
+            if (!tr) {
+              return;
+            };
+
+            // toggle + & - icons
+            const iconEl = tr.getElementsByClassName("add-icon")[0];
+            iconEl.classList.toggle('subtract-icon');
+
+            // showing / hiding children
+            const childPointer = tr.getAttribute("childpointer");
+            const children = document.getElementsByClassName(childPointer);
+            for (let c = 0; c < children.length; c++) {
+              (function () {
+                const child = children[c];
+                child.classList.toggle('collapsed');
+              }());
+            };
+          });
+        }());
+      };
+    </script>
+  </body>
+
+</html>

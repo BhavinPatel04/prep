@@ -1,0 +1,14 @@
+Key System Design things:
+  - Identify core features
+  - Identify characteristics
+  - Draw high level architecture
+    - Important thing is AVAILABILITY rather than SPEED
+    - Start with Naive solution
+    - Figure out bottlenecks
+    - Improve solution
+    - Think about edge cases (weakness)
+
+open the doors at levels in queue
+questions: 
+  - number of cars
+  - purpose - public or freight

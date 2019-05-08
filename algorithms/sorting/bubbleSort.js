@@ -15,14 +15,14 @@ const { swap } = require('../../utils');
 function bubbleSort(arr) {
     const len = arr.length;
     let sorted = true;
-    for (var i = len-1; i>=0; i--){
-      for(var j = 1; j<=i; j++){
-        if(arr[j-1]>arr[j]){
+    for (var i = len-1; i >= 0; i--) {
+      for (var j = 1; j <= i; j++) {
+        if (arr[j-1] > arr[j]) {
           swap(arr, j-1, j);
           sorted = false;
-         }
+        }
       }
-      if(sorted) break; // this will avoid redundant passes if array is already sorted
+      if (sorted) break; // this will avoid redundant passes if array is already sorted
     }
     return arr;
 };

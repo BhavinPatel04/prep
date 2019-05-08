@@ -18,8 +18,8 @@ const { swap } = require('../../utils');
 function getPIndex(inputArray, start, end) {
     const pivot = inputArray[end];
     let pIndex = start;
-    for(let i=start; i<end; i++) {
-        if(inputArray[i] < pivot) {
+    for (let i = start; i < end; i++) {
+        if (inputArray[i] < pivot) {
             swap(inputArray, i, pIndex);
             pIndex++;
         };
