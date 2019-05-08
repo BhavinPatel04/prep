@@ -72,8 +72,11 @@
     <!-- HTML for table -- end -->
     <script>
       /**
-       * Just add the columns here
-       * Note that the `key` should be EXACTLY SAME as the property in data
+       * - Just add the columns here
+       * - Note that the `key` should be EXACTLY SAME as the property in data
+       * - This script is actually generating the table HTML
+       * - You can also use this script to generate table HTML and then copy/paste 
+       *    the table anywhere you like
        */
       const columns = [
         {
@@ -216,10 +219,15 @@
         return data;
       };
     </script>
-    <!-- Script is very important -->
-    <!-- Note the classNames (`expand-icon`, `add-icon`, `subtract-icon`, `collapsed`) 
-        are same that we used before -->
     <script>
+      /**
+       * - Script is very important
+       * - Note the classNames (`expand-icon`, `add-icon`, `subtract-icon`, `collapsed`)
+       *    are same that we used before
+       * - Below script is the essence of this file
+       * - You can just copy the html (after table is generated), above style 
+       *    and this below script and it will still work
+       */
       // getting all the expand-icon elements
       const expandIcons = document.getElementsByClassName("expand-icon");
       for (let i = 0; i < expandIcons.length; i++) {
