@@ -98,27 +98,27 @@
         {
           name: "someName",
           description: "some description",
-          type: "String",
+          type: "String", // childpointer: row-0
           children: [
             {
               name: "someName lvl 1.1",
               description: "some description",
-              type: "String",
+              type: "String", // row-0;  childpointer: row-0-child-0
               children: [
                 {
                   name: "someName lvl 2.1",
                   description: "some description",
-                  type: "String",
+                  type: "String", // row-0-child-0
                 }, {
                   name: "someName lvl 2.2",
                   description: "some description",
-                  type: "String",
+                  type: "String", // row-0-child-0
                 }
               ]
             }, {
               name: "someName lvl 1.2",
               description: "some description",
-              type: "String",
+              type: "String", // row-0;  childpointer: row-0-child-1
             }
           ]
         }, {
@@ -146,10 +146,10 @@
       const headers = generateHeaders(columns);
       thead.innerHTML = headers;
 
-      function generateHeaders(columns) {
+      function generateHeaders(cols) {
         let data = '<tr>';
 
-        columns.forEach(column => {
+        cols.forEach(column => {
           data += `<th>${column.label}</th>`;
         });
 
@@ -162,10 +162,10 @@
        * This creates the body
        */
       const tbody = document.querySelector('tbody');
-      const rows = generateRow(data, {});
+      const rows = generateRow(columns, data, {});
       tbody.innerHTML = rows;
 
-      function generateRow(rows, options) {
+      function generateRow(cols, rows, options) {
         let data = '';
 
         // defaulting the level to 0
@@ -175,8 +175,8 @@
 
         rows.forEach((row, index) => {
           // creating correct childPointer class
-          if (options.childPointer) {
-            options.childPointer += `-child-${options.level - 1}`;
+          if (options.childPointer) { // row-0
+            options.childPointer += `-child-${options.level - 1}`; // row-0-child-0-child-0
           } else {
             options.childPointer = `row-${index}`
           };
@@ -192,11 +192,22 @@
           data += `<tr class="${classList}" ${childPointerAttr}>`;
 
           // creates the columns with data in row
-          columns.forEach((column, index) => {
-            // index === 0 adds + sign on 1st column, index === 1 will add + sign on 2nd column and so on
+          cols.forEach((column, colIndex) => {
+            /**
+             * row = {
+                  name: "someOtherNameAgain",
+                  description: "some description",
+                  type: "String",
+                }
+            */
+            /**
+             * column = { label: "Name", key: "name" }
+             */
+            // row[column.key] ==> row["name"] ==> someOtherNameAgain
+            // colIndex === 0 adds + sign on 1st column, colIndex === 1 will add + sign on 2nd column and so on
             // to change the icon style, check the .expand-icon in <style> above
-            const addIcon = row.children && index === 0 ? `<span class="expand-icon add-icon"></span>` : "";
-            const style = options.level && index === 0 ? `style="padding-left: ${options.level * 25}px;"` : "";
+            const addIcon = row.children && colIndex === 0 ? `<span class="expand-icon add-icon"></span>` : "";
+            const style = options.level && colIndex === 0 ? `style="padding-left: ${options.level * 25}px;"` : "";
             data += `<td ${style}>${addIcon}${row[column.key]}</td>`;
             // Note: We can add anything you want here. ANYTHING: input box / dropdown / anything
           });
@@ -208,11 +219,11 @@
           if (row.children) {
             const _options = {
               ...options,
-              level: options.level + 1,
-              childClass: options.childPointer
+              level: options.level + 1, // 1 + 1
+              childClass: options.childPointer // row-0-child-0
             };
 
-            data += generateRow(row.children, _options);
+            data += generateRow(cols, row.children, _options);
           };
         });
 
@@ -245,21 +256,42 @@
             };
 
             // toggle + & - icons
-            const iconEl = tr.getElementsByClassName("add-icon")[0];
-            iconEl.classList.toggle('subtract-icon');
 
             // showing / hiding children
-            const childPointer = tr.getAttribute("childpointer");
-            const children = document.getElementsByClassName(childPointer);
-            for (let c = 0; c < children.length; c++) {
-              (function () {
-                const child = children[c];
-                child.classList.toggle('collapsed');
-              }());
-            };
+            // const childPointer = tr.getAttribute("childpointer"); // row-0
+            // const children = document.getElementsByClassName(childPointer); // row-0
+            // for (let c = 0; c < children.length; c++) {
+            //   const child = children[c];
+            //   const cp = child.getAttribute("childpointer");
+            //   if(cp) {
+            //     const children = document.getElementsByClassName(childPointer); // row-0
+
+            //   }
+            //   child.classList.toggle('collapsed');
+            // };
+            toggleCollapsed(tr);
           });
         }());
       };
+
+      function toggleCollapsed(element) {
+        const iconEl = element.getElementsByClassName("add-icon")[0];
+        if (iconEl) {
+          iconEl.classList.toggle('subtract-icon');
+        }
+        const childPointer = element.getAttribute("childpointer"); // row-0
+        if (!childPointer) {
+          return;
+        }
+        const children = document.getElementsByClassName(childPointer); // row-0
+        for (let c = 0; c < children.length; c++) {
+          const child = children[c];
+          if (!child.classList.contains('collapsed')) {
+            toggleCollapsed(child);
+          }
+          child.classList.toggle('collapsed');
+        };
+      }
     </script>
   </body>
 
